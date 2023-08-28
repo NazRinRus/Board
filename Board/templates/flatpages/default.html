@@ -55,9 +55,20 @@
 	<td valign="top" class="left-chapters">
 	<ul id="leftchapters">
 		<li><a href="{% url 'ads_all' %}">Все оъявления</a></li>
-		<li><a href="{% url 'ads_all' %}">Новости</a></li>
-		<li><a href="{% url 'ads_all' %}">Статьи</a></li>
-		<li><a href="{% url 'ads_all' %}">Категории</a></li>
+		<li>По категориям:</li>
+		<li><a href="{% url 'ads_all' %}">Танки</a></li>
+		<li><a href="{% url 'ads_all' %}">Хилы</a></li>
+		<li><a href="{% url 'ads_all' %}">Деад диллеры</a></li>
+		<li><a href="{% url 'ads_all' %}">Торговцы</a></li>
+		<li><a href="{% url 'ads_all' %}">Гилдмастеры</a></li>
+		<li><a href="{% url 'ads_all' %}">Квестгиверы</a></li>
+		<li><a href="{% url 'ads_all' %}">Кузнецы</a></li>
+		<li><a href="{% url 'ads_all' %}">Кожевники</a></li>
+		<li><a href="{% url 'ads_all' %}">Зельевары</a></li>
+		<li><a href="{% url 'ads_all' %}">Мастера заклинаний</a></li>
+		{% for position in positions %}
+			<li><a href="{% url 'ads_all' %}">{{ position }}</a></li>
+		{% endfor %}
 		<li class="share">
 		<p>Наш канал</p>
 		<a class="share-yt" href="https://www.youtube.com/channel/UClJzWfGWuGJL2t-3dYKcHTA/playlists" target="_blank" rel="nofollow"></a>

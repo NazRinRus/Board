@@ -12,16 +12,16 @@ class Ads(models.Model):
         verbose_name_plural = 'Ad'
 
     POSITIONS = [
-        ('TK', 'Tanks'),
-        ('HL', 'Heals'),
-        ('DD', 'Damage Dealers'),
-        ('MH', 'Merchants'),
-        ('GM', 'Guildmasters'),
-        ('QG', 'Questgivers'),
-        ('BS', 'Blacksmiths'),
-        ('LW', 'Leatherworkers'),
-        ('PO', 'Potions'),
-        ('SM', 'Spell masters'),
+        ['TK', 'Tanks'],
+        ['HL', 'Heals'],
+        ['DD', 'Damage Dealers'],
+        ['MH', 'Merchants'],
+        ['GM', 'Guildmasters'],
+        ['QG', 'Questgivers'],
+        ['BS', 'Blacksmiths'],
+        ['LW', 'Leatherworkers'],
+        ['PO', 'Potions'],
+        ['SM', 'Spell masters'],
     ]
 
     author_ads = models.ForeignKey(User, on_delete=models.CASCADE)

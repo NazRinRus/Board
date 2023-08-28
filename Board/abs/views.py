@@ -21,7 +21,8 @@ class AdsList(ListView):
         posts1 = Post.objects.all()
         context['posts'] = posts1#.filter(post_at_ad=self.model.pk)
         context['menu'] = menu
-        context['title'] = ('Все объявления')
+        context['title'] = 'Все объявления'
+        context['positions'] = Ads.POSITIONS
         return context
 
 class AdDetail(DetailView):
@@ -30,9 +31,12 @@ class AdDetail(DetailView):
     context_object_name = 'ad'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        #context['posts'] = Post.objects.filter(post_at_ad=Ads.pk)
+        # Получаем объект Ads для текущего представления
+        ads_object = self.object
+        # Отфильтровываем записи Post связанные с текущим объектом Ads
+        context['posts'] = Post.objects.filter(post_at_ad=ads_object)
         context['menu'] = menu
-        context['title'] = ('Объявление')
+        context['title'] = 'Объявление'
         return context
 
 class AdCreate(CreateView):
@@ -52,9 +56,12 @@ class PostsList(ListView):
     context_object_name = 'posts'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['posts_at_ad'] = Post.objects.filter(post_at_ad=Ads.pk)
+        path1 = int(self.request.path.split('/')[1])
+        #context['posts_at_ad'] = Post.objects.filter(post_at_ad=Ads.pk)
         context['menu'] = menu
         context['title'] = 'Посты к объявлению'
+        context['ad_id'] = path1
+        context['posts_at_ad'] = Post.objects.filter(post_at_ad=path1)
         return context
 
 class PostDetail(DetailView):
@@ -63,7 +70,7 @@ class PostDetail(DetailView):
     context_object_name = 'post'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['posts_at_ad'] = Post.objects.filter(post_at_ad=Ads.pk)
+        #context['posts_at_ad'] = Post.objects.filter(post_at_ad=Ads.pk)
         context['menu'] = menu
         context['title'] = ('Пост')
         return context

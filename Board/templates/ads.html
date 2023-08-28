@@ -11,16 +11,31 @@
         <table>
             {% for ad in ads %}
             <tr>
-                <td> {{ ad.header}} </td>
             </tr>
             <tr>
-                <td> Дата публикации: {{ ad.time_in|date:'d M Y' }} </td>
+                <td>
+                    <div class="article-panel">
+                        <p class="first"> <h1>{{ ad.header}} </h1></p>
+                        <p class="last">Дата публикации: {{ ad.time_in|date:'d M Y' }}</p>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <td> Категория: {{ ad.position}} </td>
+                <td>
+                    <div class="article-panel">
+                        <p class="first">Категория: {{ ad.position}}</p>
+                        <p class="last">Автор: {{ad.author_ads}}</p>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td> {{ ad.text_ads|safe}} </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="clear"></div>
+                    <p class="link-read-post"><a href="#">Комментарии</a></p>
+                </td>
             </tr>
             {% endfor %}
         </table>
