@@ -1,0 +1,32 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block content %}
+    {% if ads %}
+    <h1> {{ title }} ( {{ ads|length }} )</h1>
+        <table>
+            {% for ad in ads %}
+            <tr>
+                <td> {{ ad.header}} </td>
+            </tr>
+            <tr>
+                <td> Дата публикации: {{ ad.time_in|date:'d M Y' }} </td>
+            </tr>
+            <tr>
+                <td> Категория: {{ ad.position}} </td>
+            </tr>
+            <tr>
+                <td> {{ ad.text_ads|safe}} </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    {% else %}
+        <h2> Постов нет! </h2>
+    {% endif %}
+
+{% endblock content %}
