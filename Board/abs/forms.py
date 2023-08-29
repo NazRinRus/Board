@@ -42,3 +42,20 @@ class AdsUpdateForm(AdsCreateForm):
 
         self.fields['text_ads'].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
         self.fields['text_ads'].required = False
+
+class PostCreateForm(forms.ModelForm):
+    """
+    Форма добавления постов на сайте
+    """
+    class Meta:
+        model = Post
+        fields = ('author_post', 'text_post')
+
+
+class PostUpdateForm(PostCreateForm):
+    """
+    Форма обновления объявления на сайте
+    """
+    class Meta:
+        model = Post
+        fields = PostCreateForm.Meta.fields

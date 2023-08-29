@@ -1,8 +1,8 @@
 from django.http import HttpResponse, request
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Ads, Post
-from .forms import AdsCreateForm, AdsUpdateForm
+from .models import Ads, Post, User
+from .forms import AdsCreateForm, AdsUpdateForm, PostCreateForm, PostUpdateForm
 
 # Create your views here.
 
@@ -53,7 +53,32 @@ class AdCreate(CreateView):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
         context['title'] = ('Создание объявления')
+        context['positions'] = Ads.POSITIONS
         return context
+
+class PostCreate(CreateView):
+    form_class = PostCreateForm
+    model = Post
+    template_name = 'post_edit.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = ('Создание объявления')
+        context['positions'] = Ads.POSITIONS
+        context['user'] = self.request.user.username
+        context['post_id'] = int(self.request.path.split('/')[1])
+        return context
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        ad_id = int(self.request.path.split('/')[1])
+        ad = Ads.objects.filter(pk=ad_id)
+        post.post_at_ad = ad[0]
+        username = self.request.user.username
+        print(username)
+        user1 = User.objects.filter(username=username)
+        post.author_post = user1[0]
+        post.save()
+        return super().form_valid(form)
 
 
 

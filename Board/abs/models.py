@@ -4,6 +4,7 @@ from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
 
 
+
 class Ads(models.Model):
 
     class Meta:
@@ -48,5 +49,8 @@ class Post(models.Model):
     post_at_ad = models.ForeignKey(Ads, on_delete=models.CASCADE)
     time_in = models.DateTimeField(auto_now_add=True)
     respond = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse('ad_id', args=[str(self.post_at_ad.pk)])
 
 
