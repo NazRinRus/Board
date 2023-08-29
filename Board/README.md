@@ -67,4 +67,12 @@ python3 manage.py startapp abs
 3) pip install psycopg2-binary --force-reinstall --no-cache-dir; видимо для postgresql
 4) python3 manage.py collectstatic;
 
+**В свободное время подумать как подчистить систему от django-skeditor**
 # Проще использовать django_ckeditor_5
+
+Подробная инструкция:
+https://pypi.org/project/django-ckeditor-5/
+
+# Представления и шаблоны
+
+![Схема представлений.jpg](..%2F..%2F..%2F%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB%2F%D0%A4%D0%BE%D1%82%D0%BE%20%D0%BF%D0%BE%20%D0%B4%D0%BE%D1%80%D0%BE%D1%85%D0%BE%D0%B2%D1%8B%D0%BC%20%D0%B4%D0%B0%D1%87%D0%B0%D0%BC%205%2F%D0%A1%D1%85%D0%B5%D0%BC%D0%B0%20%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B9.jpg)

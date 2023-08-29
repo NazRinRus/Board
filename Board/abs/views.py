@@ -55,36 +55,7 @@ class AdCreate(CreateView):
         context['title'] = ('Создание объявления')
         return context
 
-class PostsList(ListView):
-    model = Post
-    ordering = 'time_in'
-    template_name = 'posts.html'
-    context_object_name = 'posts'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        path1 = int(self.request.path.split('/')[1])
-        #context['posts_at_ad'] = Post.objects.filter(post_at_ad=Ads.pk)
-        context['menu'] = menu
-        context['title'] = 'Посты к объявлению'
-        context['ad_id'] = path1
-        context['posts_at_ad'] = Post.objects.filter(post_at_ad=path1)
-        return context
 
-class PostDetail(DetailView):
-    model = Post
-    template_name = 'post.html'
-    context_object_name = 'post'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        #context['posts_at_ad'] = Post.objects.filter(post_at_ad=Ads.pk)
-        context['menu'] = menu
-        context['title'] = ('Пост')
-        return context
-
-# class AdCreate(CreateView):
-#     form_class = PostsCreateForm
-#     model = Post
-#     template_name = 'post_edit.html'
 
 def contact(request):
     return HttpResponse("Обратная связь")
