@@ -6,6 +6,15 @@
 {% endblock title %}
 
 {% block content %}
+<table>
+    <tr>
+        <td>
+            <div class="article-panel">
+                <p class="link-read-post"><a href="{% url 'ad_create' %}">Новая статья</a></p>
+            </div>
+        </td>
+    </tr>
+</table>
     {% if ads %}
     <h1> {{ title }} ( {{ ads|length }} )</h1>
         <table>

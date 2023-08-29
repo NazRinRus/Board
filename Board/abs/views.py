@@ -52,7 +52,25 @@ class AdCreate(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
-        context['title'] = ('Создание объявления')
+        context['title'] = 'Новая статья'
+        context['positions'] = Ads.POSITIONS
+        return context
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        username = self.request.user.username
+        user1 = User.objects.filter(username=username)
+        post.author_ads = user1[0]
+        post.save()
+        return super().form_valid(form)
+
+class AdUpdate(UpdateView):
+    form_class = AdsUpdateForm
+    model = Ads
+    template_name = 'ad_edit.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Редактирование статьи'
         context['positions'] = Ads.POSITIONS
         return context
 
@@ -74,7 +92,6 @@ class PostCreate(CreateView):
         ad = Ads.objects.filter(pk=ad_id)
         post.post_at_ad = ad[0]
         username = self.request.user.username
-        print(username)
         user1 = User.objects.filter(username=username)
         post.author_post = user1[0]
         post.save()

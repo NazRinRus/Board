@@ -27,7 +27,12 @@
             </tr>
             <tr>
                 <td>
-                    <div class="clear"></div>
+                    <button><a href="{% url 'ad_update' ad.pk %}"> Редактировать </a></button>
+                    <button><a href="#"> Удалить </a></button>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <p class="link-read-post"><a href="{% url 'post_create' ad.pk %}">Добавить комментарий</a></p>
                 </td>
             </tr>

@@ -9,7 +9,7 @@ class AdsCreateForm(forms.ModelForm):
     """
     class Meta:
         model = Ads
-        fields = ('author_ads', 'header', 'position', 'text_ads')
+        fields = ('header', 'position', 'text_ads')
         widgets = {
             "text": CKEditor5Widget(
                 attrs={"class": "django_ckeditor_5"}, config_name="default"
@@ -49,7 +49,7 @@ class PostCreateForm(forms.ModelForm):
     """
     class Meta:
         model = Post
-        fields = ('author_post', 'text_post')
+        fields = ('text_post',)
 
 
 class PostUpdateForm(PostCreateForm):
