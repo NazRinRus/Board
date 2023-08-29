@@ -56,18 +56,9 @@
 	<ul id="leftchapters">
 		<li><a href="{% url 'ads_all' %}">Все оъявления</a></li>
 		<li>По категориям:</li>
-		<li><a href="{% url 'ads_all' %}">Танки</a></li>
-		<li><a href="{% url 'ads_all' %}">Хилы</a></li>
-		<li><a href="{% url 'ads_all' %}">Деад диллеры</a></li>
-		<li><a href="{% url 'ads_all' %}">Торговцы</a></li>
-		<li><a href="{% url 'ads_all' %}">Гилдмастеры</a></li>
-		<li><a href="{% url 'ads_all' %}">Квестгиверы</a></li>
-		<li><a href="{% url 'ads_all' %}">Кузнецы</a></li>
-		<li><a href="{% url 'ads_all' %}">Кожевники</a></li>
-		<li><a href="{% url 'ads_all' %}">Зельевары</a></li>
-		<li><a href="{% url 'ads_all' %}">Мастера заклинаний</a></li>
 		{% for position in positions %}
-			<li><a href="{% url 'ads_all' %}">{{ position }}</a></li>
+		<!--		передаю в строку запроса параметр position для дальнейшей фильтрации-->
+			<li><a href="{% url 'ads_all' %}?position_ad={{position.0}}">{{ position.1 }}</a></li>
 		{% endfor %}
 		<li class="share">
 		<p>Наш канал</p>

@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Ads, Post
@@ -16,13 +16,18 @@ class AdsList(ListView):
     template_name = 'ads.html'
     context_object_name = 'ads'
 
+    # получаю из адресной строки URL параметр position_ad - категория Ad для дальнейшей фильтрации
+    def get_category(self, request):
+        position_ad = request.GET.get("position_ad")
+        return position_ad
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        posts1 = Post.objects.all()
-        context['posts'] = posts1#.filter(post_at_ad=self.model.pk)
+        context['posts'] = Post.objects.all()
         context['menu'] = menu
         context['title'] = 'Все объявления'
-        context['positions'] = Ads.POSITIONS
+        context['positions'] = Ads.POSITIONS # список всех категорий для меню
+        context['position_ad'] = self.get_category(self.request) # выбранная категория
         return context
 
 class AdDetail(DetailView):
@@ -37,6 +42,7 @@ class AdDetail(DetailView):
         context['posts'] = Post.objects.filter(post_at_ad=ads_object)
         context['menu'] = menu
         context['title'] = 'Объявление'
+        context['positions'] = Ads.POSITIONS
         return context
 
 class AdCreate(CreateView):
