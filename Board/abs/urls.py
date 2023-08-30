@@ -8,7 +8,9 @@ urlpatterns = [
    path('create/', AdCreate.as_view(), name='ad_create'),
    path('<int>/create/', PostCreate.as_view(), name='post_create'),
    path('<int:pk>/update/', AdUpdate.as_view(), name='ad_update'),
-
+   path('<int:pk>/delete/', AdDelete.as_view(), name='ad_delete'),
+   path('<int>/postdelete/<int:pk>', PostDelete.as_view(), name='post_delete'),
+   path('personalpage/', PersonalList.as_view(), name='personal_list'),
 
    path('about/', about, name='about'),
    path('contact/', contact, name='contact'),

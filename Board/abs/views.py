@@ -1,5 +1,6 @@
 from django.http import HttpResponse, request
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Ads, Post, User
 from .forms import AdsCreateForm, AdsUpdateForm, PostCreateForm, PostUpdateForm
@@ -97,7 +98,47 @@ class PostCreate(CreateView):
         post.save()
         return super().form_valid(form)
 
+class AdDelete(DeleteView):
+    model = Ads
+    template_name = 'ad_delete.html'
+    success_url = reverse_lazy('ads_all')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Удаление статьи'
+        return context
 
+class PostDelete(DeleteView):
+    model = Post
+    template_name = 'ad_delete.html'
+    success_url = reverse_lazy('ads_all')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Удаление комментария'
+        return context
+
+class PersonalList(ListView):
+    model = Ads
+    ordering = 'time_in'
+    template_name = 'personal_page.html'
+    context_object_name = 'pers_list'
+
+    # получаю из адресной строки URL параметр position_ad - категория Ad для дальнейшей фильтрации
+    def get_category(self, request):
+        position_ad = request.GET.get("position_ad")
+        return position_ad
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        author = self.request.user
+        context['posts'] = Post.objects.all()
+        context['menu'] = menu
+        context['title'] = 'Ваши объявления'
+        context['positions'] = Ads.POSITIONS # список всех категорий для меню
+        context['position_ad'] = self.get_category(self.request) # выбранная категория
+        context['authors_ads'] = Ads.objects.filter(author_ads=author).order_by('-time_in')
+        return context
 
 def contact(request):
     return HttpResponse("Обратная связь")

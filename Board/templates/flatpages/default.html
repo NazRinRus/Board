@@ -32,9 +32,7 @@
 	{% else %}
 			{% if request.user.username %}
 				<li class="last"> Вы вошли на сайт под именем: {{request.user.username}} |
-					{% if is_not_author %}
-						<button> <a href="sign/upgrade/"> Стать автором </a> </button>
-					{% endif %}
+					<button> <a href="{% url 'personal_list' %}"> Личный кабинет </a> </button>
 					| <a href="#">Выйти</a> </li>
 			{% else %}
 				<li class="last"><a href="{{ m.url_name }}">{{ m.title }}</a></li>

@@ -15,10 +15,10 @@
         </td>
     </tr>
 </table>
-    {% if ads %}
-    <h1> {{ title }} ( {{ ads|length }} )</h1>
+    {% if authors_ads %}
+    <h1> {{ title }} ( {{ authors_ads|length }} )</h1>
         <table>
-            {% for ad in ads %}
+            {% for ad in authors_ads %}
             {% if not position_ad or ad.position == position_ad %}
             <tr>
             </tr>

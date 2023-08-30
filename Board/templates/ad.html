@@ -28,7 +28,7 @@
             <tr>
                 <td>
                     <button><a href="{% url 'ad_update' ad.pk %}"> Редактировать </a></button>
-                    <button><a href="#"> Удалить </a></button>
+                    <button><a href="{% url 'ad_delete' ad.pk %}"> Удалить </a></button>
                 </td>
             </tr>
             <tr>
@@ -54,7 +54,7 @@
                         <div class="article-panel">
                             <li class="last">
                                 <button><a href="#"> Отклик </a> </button>
-                                <button><a href="#"> Удалить </a> </button>
+                                <button><a href="{% url 'post_delete' ad.pk post.pk %}"> Удалить </a> </button>
                             </li>
                         </div>
                     </td>
