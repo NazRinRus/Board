@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'abs',
     'django_ckeditor_5',
+    'sign'
 ]
 
 SITE_ID = 1
@@ -303,3 +304,5 @@ CKEDITOR_5_CONFIGS = {
     }
 
 }
+LOGIN_URL = 'sign/login/'
+LOGIN_REDIRECT_URL = '/'

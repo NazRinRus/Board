@@ -33,8 +33,9 @@
 			{% if request.user.username %}
 				<li class="last"> Вы вошли на сайт под именем: {{request.user.username}} |
 					<button> <a href="{% url 'personal_list' %}"> Личный кабинет </a> </button>
-					| <a href="#">Выйти</a> </li>
+					| <a href="{% url 'logout' %}">Выйти</a> </li>
 			{% else %}
+<!--					Регистрация -->
 				<li class="last"><a href="{{ m.url_name }}">{{ m.title }}</a></li>
 			{% endif %}
 	{% endif %}

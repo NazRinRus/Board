@@ -1,15 +1,18 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, request
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Ads, Post, User
-from .forms import AdsCreateForm, AdsUpdateForm, PostCreateForm, PostUpdateForm
+from .forms import AdsCreateForm, AdsUpdateForm, PostCreateForm
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 menu = [{'title': ("О сайте"), 'url_name': 'about'},
         {'title': ("Обратная связь"), 'url_name': 'contact'},
-        {'title': ("Войти / Зарегистрироваться"), 'url_name': '/accounts/login'}
+        {'title': ("Войти / Зарегистрироваться"), 'url_name': 'sign/login'}
 ]
 class AdsList(ListView):
     model = Ads
@@ -139,6 +142,7 @@ class PersonalList(ListView):
         context['position_ad'] = self.get_category(self.request) # выбранная категория
         context['authors_ads'] = Ads.objects.filter(author_ads=author).order_by('-time_in')
         return context
+
 
 def contact(request):
     return HttpResponse("Обратная связь")
