@@ -36,8 +36,8 @@ class GetCode(CreateView):
             code = ''.join(random.sample(hexdigits, 5))
             OneTimeCode.objects.create(user=name_user, code=code)
             user = User.objects.get(username=name_user)
-            send_mail(subject='Код активации',
-                      message='Код активации аккаунта: {{code}}',
+            send_mail(subject=f'Код активации',
+                      message=f'Код активации аккаунта: {code}',
                       from_email=settings.EMAIL_HOST_USER,
                       recipient_list=[user.email,]
                       )
