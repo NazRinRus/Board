@@ -17,7 +17,7 @@ class BaseRegisterView(CreateView):
     success_url = 'sign/signup.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form']=BaseRegisterForm()
+        context['form'] = BaseRegisterForm()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -44,6 +44,7 @@ class GetCode(CreateView):
     def post(self, request, *args, **kwargs):
         if 'code' in request.POST:
             user = request.path.split('/')[-1]
+            print(user)
             if OneTimeCode.objects.filter(code=request.POST['code'], user=user).exists():
                 User.objects.filter(username=user).update(is_active=True)
                 OneTimeCode.objects.filter(code=request.POST['code'], user=user).delete()
