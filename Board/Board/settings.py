@@ -306,3 +306,12 @@ CKEDITOR_5_CONFIGS = {
 }
 LOGIN_URL = 'sign/login/'
 LOGIN_REDIRECT_URL = '/'
+
+DEFAULT_FROM_EMAIL = 'rnazarov11@bk.ru'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'rnazarov11@bk.ru'
+EMAIL_HOST_PASSWORD = 'eG7jfyVDBSXDQXZ92Nei'
