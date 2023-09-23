@@ -26,10 +26,12 @@
                 <td> {{ ad.text_ads|safe}} </td>
             </tr>
             <tr>
+                {% if this_author %}
                 <td>
                     <button><a href="{% url 'ad_update' ad.pk %}"> Редактировать </a></button>
                     <button><a href="{% url 'ad_delete' ad.pk %}"> Удалить </a></button>
                 </td>
+                {% endif %}
             </tr>
             <tr>
                 <td>
@@ -50,6 +52,7 @@
                     <td>{{ post.text_post|safe}}</td>
                 </tr>
                 <tr>
+                    {% if this_author %} #Если текущий пользователь соответствует автору новости, то он может влиять на отклики
                     <td>
                         <div class="article-panel">
                             <li class="last">
@@ -58,6 +61,16 @@
                             </li>
                         </div>
                     </td>
+                    {% endif %}
+                    {% if not this_author and user_now == post.author_post %} #Если текущий пользователь соответствует автору отклика, то он может его удалить
+                    <td>
+                        <div class="article-panel">
+                            <li class="last">
+                                <button><a href="{% url 'post_delete' ad.pk post.pk %}"> Удалить </a> </button>
+                            </li>
+                        </div>
+                    </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

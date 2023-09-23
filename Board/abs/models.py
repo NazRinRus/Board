@@ -53,4 +53,8 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('ad_id', args=[str(self.post_at_ad.pk)])
 
+    def respond_method(self):
+        self.respond = True
+        self.save()
+
 

@@ -42,11 +42,20 @@ class AdDetail(DetailView):
         context = super().get_context_data(**kwargs)
         # Получаем объект Ads для текущего представления
         ads_object = self.object
+        # получаем автора объекта Ads
+        author = ads_object.author_ads
+        # получаем текущего пользователя
+        user_now = self.request.user
+        print('test', 'author:', author)
+        print('test', 'user_now:', user_now)
         # Отфильтровываем записи Post связанные с текущим объектом Ads
         context['posts'] = Post.objects.filter(post_at_ad=ads_object)
         context['menu'] = menu
         context['title'] = 'Объявление'
         context['positions'] = Ads.POSITIONS
+        context['this_author'] = (author == user_now) # соответствие текущего юзера с автором статьи, для добавления панели управления объектом в шаблоне
+        context['user_now'] = user_now
+        print('test', 'this_author:', context['this_author'])
         return context
 
 class AdCreate(CreateView):
