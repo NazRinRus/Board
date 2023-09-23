@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from config import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,10 +81,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'board_db',
-        'USER': 'nazrinrus',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'USER': FSTR_DB_LOGIN,
+        'PASSWORD': FSTR_DB_PASS,
+        'HOST': FSTR_DB_HOST,
+        'PORT': FSTR_DB_PORT,
     }
 }
 
