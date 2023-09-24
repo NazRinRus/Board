@@ -56,7 +56,9 @@
                     <td>
                         <div class="article-panel">
                             <li class="last">
-                                <button><a href="{% url 'post_response' ad.pk post.pk %}"> Отклик </a> </button>
+                                {% if not post.respond %}
+                                    <button><a href="{% url 'post_response' ad.pk post.pk %}"> Отклик </a> </button>
+                                {% endif %}
                                 <button><a href="{% url 'post_delete' ad.pk post.pk %}"> Удалить </a> </button>
                             </li>
                         </div>

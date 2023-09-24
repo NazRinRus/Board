@@ -158,7 +158,7 @@ def postresponse(request, pk_ad, pk_post):
     post = Post.objects.get(pk=pk_post)
     post.respond_method()
 
-    return redirect('personal_list')
+    return redirect('ad_id', pk_ad)
 
 def contact(request):
     return HttpResponse("Обратная связь")
