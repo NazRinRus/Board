@@ -1,4 +1,3 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import send_mail
 from django.http import HttpResponse, request
 from django.shortcuts import render, redirect
@@ -10,7 +9,6 @@ from Board import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 
 menu = [{'title': ("О сайте"), 'url_name': 'about'},
         {'title': ("Обратная связь"), 'url_name': 'contact'},
