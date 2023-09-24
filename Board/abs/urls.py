@@ -11,7 +11,7 @@ urlpatterns = [
    path('<int:pk>/delete/', AdDelete.as_view(), name='ad_delete'),
    path('<int>/postdelete/<int:pk>', PostDelete.as_view(), name='post_delete'),
    path('personalpage/', PersonalList.as_view(), name='personal_list'),
-
+   path('<int>/response/<int:pk>', postresponse, name='post_response'),
 
    path('about/', about, name='about'),
    path('contact/', contact, name='contact'),

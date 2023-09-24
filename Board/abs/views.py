@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, request
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Ads, Post, User
@@ -152,6 +152,13 @@ class PersonalList(ListView):
         context['authors_ads'] = Ads.objects.filter(author_ads=author).order_by('-time_in')
         return context
 
+def postresponse(request, pk_ad, pk_post):
+    print('test', request)
+    user = request.user
+    post = Post.objects.get(pk=pk_post)
+    post.respond_method()
+
+    return redirect('personal_list')
 
 def contact(request):
     return HttpResponse("Обратная связь")
