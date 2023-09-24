@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Ads, Post, User
 from .forms import AdsCreateForm, AdsUpdateForm, PostCreateForm
 from Board import settings
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 menu = [{'title': ("О сайте"), 'url_name': 'about'},
@@ -56,7 +57,7 @@ class AdDetail(DetailView):
         print('test', 'this_author:', context['this_author'])
         return context
 
-class AdCreate(CreateView):
+class AdCreate(LoginRequiredMixin, CreateView):
     form_class = AdsCreateForm
     model = Ads
     template_name = 'ad_edit.html'
@@ -74,7 +75,8 @@ class AdCreate(CreateView):
         post.save()
         return super().form_valid(form)
 
-class AdUpdate(UpdateView):
+
+class AdUpdate(LoginRequiredMixin, UpdateView):
     form_class = AdsUpdateForm
     model = Ads
     template_name = 'ad_edit.html'
@@ -85,7 +87,13 @@ class AdUpdate(UpdateView):
         context['positions'] = Ads.POSITIONS
         return context
 
-class PostCreate(CreateView):
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if self.request.user != kwargs['instance'].author_ads:
+            return self.handle_no_permission()
+        return kwargs
+
+class PostCreate(LoginRequiredMixin, CreateView):
     form_class = PostCreateForm
     model = Post
     template_name = 'post_edit.html'
@@ -110,7 +118,7 @@ class PostCreate(CreateView):
 
 
 
-class AdDelete(DeleteView):
+class AdDelete(LoginRequiredMixin, DeleteView):
     model = Ads
     template_name = 'ad_delete.html'
     success_url = reverse_lazy('ads_all')
@@ -120,7 +128,7 @@ class AdDelete(DeleteView):
         context['title'] = 'Удаление статьи'
         return context
 
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'ad_delete.html'
     success_url = reverse_lazy('ads_all')
@@ -130,7 +138,7 @@ class PostDelete(DeleteView):
         context['title'] = 'Удаление комментария'
         return context
 
-class PersonalList(ListView):
+class PersonalList(LoginRequiredMixin, ListView):
     model = Ads
     ordering = 'time_in'
     template_name = 'personal_page.html'
