@@ -6,8 +6,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Ads, Post, User
 from .forms import AdsCreateForm, AdsUpdateForm, PostCreateForm
 from Board import settings
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.decorators import login_required
 
 
 menu = [{'title': ("О сайте"), 'url_name': 'about'},
@@ -109,6 +107,8 @@ class PostCreate(CreateView):
         post.author_post = user1[0]
         post.save()
         return super().form_valid(form)
+
+
 
 class AdDelete(DeleteView):
     model = Ads
