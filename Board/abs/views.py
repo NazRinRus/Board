@@ -1,10 +1,12 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.core.mail import send_mail
 from django.http import HttpResponse, request
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Ads, Post, User
 from .forms import AdsCreateForm, AdsUpdateForm, PostCreateForm
+from Board import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 
@@ -160,6 +162,14 @@ def postresponse(request, pk_ad, pk_post):
     if user == ad.author_ads: #функция доступна только автору статьи
         post = Post.objects.get(pk=pk_post)
         post.respond_method()
+        author_post = post.author_post
+        print('test', 'ad.author_post:', post.author_post.email)
+        # Отправка письма автору отклика, об одобрении автора новости
+        send_mail(subject=f'Отклик одобрен',
+                  message=f'Автор статьи "{ad.header}" {user} одобрил Ваш комментарий к статье',
+                  from_email=settings.EMAIL_HOST_USER,
+                  recipient_list=[author_post.email, ]
+                  )
 
     return redirect('ad_id', pk_ad)
 
