@@ -40,6 +40,7 @@
             </tr>
             <tr><td><p class="first"><h2>Коментарии:</h2></p></td></tr>
             {% for post in posts %}
+            {% if this_author or post.respond %}
                 <tr>
                     <td>
                         <div class="article-panel">
@@ -74,6 +75,7 @@
                     </td>
                     {% endif %}
                 </tr>
+            {% endif %}
             {% endfor %}
         </table>
 
