@@ -153,10 +153,13 @@ class PersonalList(ListView):
         return context
 
 def postresponse(request, pk_ad, pk_post):
-    print('test', request)
     user = request.user
-    post = Post.objects.get(pk=pk_post)
-    post.respond_method()
+    ad = Ads.objects.get(pk=pk_ad)
+    print('test', 'user:', user)
+    print('test', 'ad.author_ads:', ad.author_ads)
+    if user == ad.author_ads: #функция доступна только автору статьи
+        post = Post.objects.get(pk=pk_post)
+        post.respond_method()
 
     return redirect('ad_id', pk_ad)
 
